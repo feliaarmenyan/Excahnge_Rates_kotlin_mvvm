@@ -7,4 +7,6 @@ data class Currency(
     val Scale: String ?=null,
     val Name: String ?=null,
     val Rate: String ?=null,
-)
+    @Transient
+    val RateSecondDay: String ?=null,
+    )

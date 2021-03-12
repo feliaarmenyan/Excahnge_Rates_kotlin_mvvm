@@ -6,5 +6,8 @@ import retrofit2.http.GET
 interface DailyExRatesApiService {
 
     @GET("03/12/202")
-    suspend fun getDailyExRates(): DailyExRates
+    suspend fun getFirstDayExRates(): DailyExRates
+
+    @GET("04/12/202")
+    suspend fun getSecondDayExRates(): DailyExRates
 }
