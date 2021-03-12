@@ -12,17 +12,17 @@
         tools:layout="@layout/fragment_exchange_rates">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SettingsFragment" />
+            android:id="@+id/action_ExchangeRatesFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
     <fragment
         android:id="@+id/SettingsFragment"
         android:name="com.example.exchange_rates_kotlin.ui.SettingsFragment"
-            android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_settings">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/ExchangeRatesFragment" />
-    </fragment>
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
