@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/ExchangeRatesFragment"
-        android:name="com.example.exchange_rates_kotlin.ui.ExchangeRatesFragment"
+        android:name="com.example.exchange_rates_kotlin.ui.exchagerates.ExchangeRatesFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_exchange_rates">
 

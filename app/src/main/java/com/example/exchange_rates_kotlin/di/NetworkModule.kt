@@ -3,9 +3,7 @@ package com.example.exchange_rates_kotlin.di
 import android.content.Context
 import com.example.exchange_rates_kotlin.AppConstants.BASE_URL
 import com.example.exchange_rates_kotlin.core.utils.hasNetworkConnection
-import com.example.exchange_rates_kotlin.data.local.preference.AppPreferences
 import com.example.exchange_rates_kotlin.data.remote.api.DailyExRatesApiService
-import com.google.gson.GsonBuilder
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -13,7 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -29,10 +27,9 @@ val networkModule = module {
 
     single {
         createWebService<DailyExRatesApiService>(
-            okHttpClient = createSecureHttpClient(
+            okHttpClient = createHttpClient(
                 cache = get(),
-                context = androidContext(),
-                preference = get(),
+                context = androidContext()
             ),
             baseUrl = BASE_URL
         )
@@ -46,28 +43,6 @@ fun createHttpClient(
 ): OkHttpClient {
     val client = OkHttpClient.Builder()
 
-    client.apply {
-        connectTimeout(30, TimeUnit.SECONDS)
-        readTimeout(30, TimeUnit.SECONDS)
-        writeTimeout(30, TimeUnit.SECONDS)
-        cache(cache)
-        addInterceptor(
-            HttpLoggingInterceptor()
-                .setLevel(HttpLoggingInterceptor.Level.BODY)
-        )
-        addInterceptor(createNetworkInterceptor(context))
-    }
-
-    return client.build()
-}
-
-fun createSecureHttpClient(
-    cache: Cache,
-    context: Context,
-    preference: AppPreferences,
-): OkHttpClient {
-
-    val client = OkHttpClient.Builder()
     client.apply {
         connectTimeout(30, TimeUnit.SECONDS)
         readTimeout(30, TimeUnit.SECONDS)
@@ -107,8 +82,8 @@ inline fun <reified T> createWebService(
 ): T {
     val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
-        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         .client(okHttpClient)
+        .addConverterFactory(SimpleXmlConverterFactory.create())
         .build()
     return retrofit.create(T::class.java)
 }

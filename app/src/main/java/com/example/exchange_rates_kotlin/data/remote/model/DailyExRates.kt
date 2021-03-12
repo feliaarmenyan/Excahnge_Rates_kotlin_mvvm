@@ -1,8 +1,16 @@
 package com.example.exchange_rates_kotlin.data.remote.model
 
-import java.util.*
+import org.simpleframework.xml.ElementList
+import org.simpleframework.xml.Root
 
-data class DailyExRates(
-    val Date: Date?=null,
-    val Currency: List<Currency> ?=null
+@Root(strict = false, name = "DailyExRates")
+data class DailyExRates constructor(
+    @field:ElementList(
+        required = false,
+        name = "Currency",
+        entry = "Currency",
+        inline = true,
+        empty = true
+    )
+    var Currency: MutableList<Currency>? = null
 )

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ExchangeRatesFragment">
+    tools:context=".ui.exchagerates.ExchangeRatesFragment">
 
     <Toolbar
         android:id="@+id/toolbar"
@@ -97,6 +97,7 @@
         tools:listitem="@layout/item_exchange_rate" />
 
     <include
+        android:id="@+id/view_error"
         layout="@layout/view_error"
         android:layout_width="match_parent"
         android:layout_height="0dp"
