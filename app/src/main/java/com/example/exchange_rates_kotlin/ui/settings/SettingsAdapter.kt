@@ -42,7 +42,7 @@ class SettingsAdapter() :
                 when (item.CharCode) {
                     "USD" -> exchangeSwitch.isChecked = true
                     "EUR" -> exchangeSwitch.isChecked = true
-                    "RU" -> exchangeSwitch.isChecked = true
+                    "RUB" -> exchangeSwitch.isChecked = true
                     else -> exchangeSwitch.isChecked = false
                 }
             }

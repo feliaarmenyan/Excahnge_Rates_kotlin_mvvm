@@ -33,6 +33,15 @@ class ExchangeRatesFragment : Fragment(R.layout.fragment_exchange_rates) {
         super.onViewCreated(view, savedInstanceState)
         mBinding.recyclerView.adapter = mAdapter
 
+        with(mBinding) {
+            firstDay.text = requireContext().getDate(Date())
+            mViewModel.tomorrowExRates.value?.let{
+                secondDay.text = requireContext().getDate(tomorrow())
+            }?:run{
+                secondDay.text = requireContext().getDate(yesterday())
+            }
+        }
+
         mBinding.settings.setOnClickListener {
             val info = mViewModel.todayExRates.value
             if (info != null && !info.CurrencyList.isNullOrEmpty()) {
@@ -55,19 +64,11 @@ class ExchangeRatesFragment : Fragment(R.layout.fragment_exchange_rates) {
 
         mViewModel.yesterdayExRates.observe(this) { items ->
             Log.e("yesterday items ", items.toString())
-            with(mBinding) {
-                firstDay.text = requireContext().getDate(Date())
-                secondDay.text = requireContext().getDate(yesterday())
-            }
             setSecondDayInfo(items)
         }
 
         mViewModel.tomorrowExRates.observe(this) { items ->
             Log.e("Tomorrow items ", items.toString())
-            with(mBinding) {
-                firstDay.text = requireContext().getDate(Date())
-                secondDay.text = requireContext().getDate(tomorrow())
-            }
 
             setSecondDayInfo(items)
         }
