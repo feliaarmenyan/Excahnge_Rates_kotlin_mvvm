@@ -12,5 +12,5 @@ data class DailyExRates constructor(
         inline = true,
         empty = true
     )
-    var Currency: MutableList<Currency>? = null
+    var CurrencyList: MutableList<Currency>? = null
 )

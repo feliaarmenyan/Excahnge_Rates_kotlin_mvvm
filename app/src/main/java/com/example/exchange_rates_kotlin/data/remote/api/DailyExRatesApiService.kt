@@ -7,5 +7,5 @@ import retrofit2.http.Query
 
 interface DailyExRatesApiService {
     @GET("XmlExRates.aspx")
-    suspend fun getFirstDayExRates(@Query("ondate") Date: String): DailyExRates
+    suspend fun getFirstDayExRates(@Query("ondate") Date: String?): DailyExRates
 }

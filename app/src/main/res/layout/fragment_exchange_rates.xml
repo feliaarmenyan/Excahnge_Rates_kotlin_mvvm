@@ -61,28 +61,30 @@
 
         <TextView
             android:id="@+id/first_day"
-            android:layout_width="wrap_content"
+            android:layout_width="96dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ellipsize="end"
             android:fontFamily="@font/roboto_regular"
             android:lines="1"
+            android:gravity="center"
             android:padding="8dp"
             android:textColor="#2C2C2C"
-            android:textSize="16sp"
-            tools:text="1,2324" />
+            android:textSize="14sp"
+            tools:text="23.13.2021" />
 
         <TextView
             android:id="@+id/second_day"
-            android:layout_width="wrap_content"
+            android:layout_width="96dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ellipsize="end"
             android:fontFamily="@font/roboto_regular"
             android:lines="1"
             android:padding="8dp"
+            android:gravity="center"
             android:textColor="#2C2C2C"
-            android:textSize="16sp"
+            android:textSize="14sp"
             tools:text="1,2324" />
     </LinearLayout>
 
