@@ -1,9 +1,12 @@
 package com.example.exchange_rates_kotlin.data.remote.model
 
+import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
+import kotlinx.android.parcel.Parcelize
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root
 
+@Parcelize
 @Root(strict = false, name = "Currency")
 data class Currency(
     @field:Element(name = "NumCode", required = false)
@@ -18,7 +21,7 @@ data class Currency(
     var Rate: String = "",
     @Transient
     var secondDay: String = ""
-) {
+) : Parcelable {
     fun exRates(): String {
         return "$Scale  $Name"
     }

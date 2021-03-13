@@ -1,19 +1,22 @@
-package com.example.exchange_rates_kotlin.ui.exchagerates
+package com.example.exchange_rates_kotlin.ui.settings
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.exchange_rates_kotlin.data.remote.model.Currency
 import com.example.exchange_rates_kotlin.databinding.ItemExchangeRateBinding
+import com.example.exchange_rates_kotlin.databinding.ItemSettingsBinding
 
-class ExRatesAdapter() : ListAdapter<Currency, ExRatesAdapter.BaseViewHolder>(Currency.COMPARATOR) {
+class SettingsAdapter() :
+    ListAdapter<Currency, SettingsAdapter.BaseViewHolder>(Currency.COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemExchangeRateBinding.inflate(layoutInflater, parent, false)
-        return ExRatesItemViewHolder(binding)
+        val binding = ItemSettingsBinding.inflate(layoutInflater, parent, false)
+        return SettingsItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
@@ -30,14 +33,18 @@ class ExRatesAdapter() : ListAdapter<Currency, ExRatesAdapter.BaseViewHolder>(Cu
         notifyDataSetChanged()
     }
 
-    inner class ExRatesItemViewHolder(private var binding: ItemExchangeRateBinding) :
+    inner class SettingsItemViewHolder(private var binding: ItemSettingsBinding) :
         BaseViewHolder(binding) {
         override fun bindTo(item: Currency) {
             with(binding) {
                 charCode.text = item.CharCode
                 exRates.text = item.exRates()
-                manySizeFirstDay.text = item.Rate
-                manySizeSecondDay.text = item.secondDay
+                when (item.CharCode) {
+                    "USD" -> exchangeSwitch.isChecked = true
+                    "EUR" -> exchangeSwitch.isChecked = true
+                    "RU" -> exchangeSwitch.isChecked = true
+                    else -> exchangeSwitch.isChecked = false
+                }
             }
         }
     }

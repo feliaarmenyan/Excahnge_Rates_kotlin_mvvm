@@ -22,7 +22,11 @@
     </fragment>
     <fragment
         android:id="@+id/SettingsFragment"
-        android:name="com.example.exchange_rates_kotlin.ui.SettingsFragment"
+        android:name="com.example.exchange_rates_kotlin.ui.settings.SettingsFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <argument
+            android:name="exRates"
+            app:argType="com.example.exchange_rates_kotlin.data.remote.model.DailyExRates" />
+    </fragment>
 </navigation>

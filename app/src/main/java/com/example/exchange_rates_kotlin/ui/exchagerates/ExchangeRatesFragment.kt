@@ -11,6 +11,7 @@ import com.example.exchange_rates_kotlin.core.utils.*
 import com.example.exchange_rates_kotlin.data.remote.model.DailyExRates
 import com.example.exchange_rates_kotlin.databinding.FragmentExchangeRatesBinding
 import com.example.exchange_rates_kotlin.ui.DailyRatesViewModel
+import com.example.exchange_rates_kotlin.ui.settings.SettingsFragmentArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -33,8 +34,15 @@ class ExchangeRatesFragment : Fragment(R.layout.fragment_exchange_rates) {
         mBinding.recyclerView.adapter = mAdapter
 
         mBinding.settings.setOnClickListener {
-            findNavController()
-                .navigate(R.id.action_ExchangeRatesFragment_to_SettingsFragment)
+            val info = mViewModel.todayExRates.value
+            if (info != null && !info.CurrencyList.isNullOrEmpty()) {
+
+                val args = SettingsFragmentArgs(info)
+                findNavController().navigate(
+                    R.id.action_ExchangeRatesFragment_to_SettingsFragment,
+                    args.toBundle()
+                )
+            }
         }
     }
 
@@ -93,7 +101,7 @@ class ExchangeRatesFragment : Fragment(R.layout.fragment_exchange_rates) {
         }
     }
 
-    private fun setSecondDayInfo(exRates: DailyExRates){
+    private fun setSecondDayInfo(exRates: DailyExRates) {
 
         mViewModel.todayExRates.value?.CurrencyList?.let { currencies ->
             if (currencies.isNotEmpty() && !exRates.CurrencyList.isNullOrEmpty()) {

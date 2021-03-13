@@ -19,25 +19,25 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/currency"
+            android:id="@+id/char_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:fontFamily="@font/roboto_bold"
             android:lines="1"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             tools:text="USD" />
 
         <TextView
-            android:id="@+id/currency_size"
+            android:id="@+id/ex_rates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:fontFamily="@font/roboto_regular"
             android:lines="1"
             android:textColor="#5E5A5A"
-            android:textSize="16sp"
+            android:textSize="13sp"
             tools:text="1 dollar sha" />
     </LinearLayout>
 
