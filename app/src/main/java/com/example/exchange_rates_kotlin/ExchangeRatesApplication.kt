@@ -11,7 +11,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import timber.log.Timber
 
-class ExchangeRatesApplication  : Application() {
+class ExchangeRatesApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -19,7 +19,7 @@ class ExchangeRatesApplication  : Application() {
         startKoin {
             androidLogger(Level.ERROR)
             androidContext(this@ExchangeRatesApplication)
-            modules(listOf(appModule, networkModule,viewModelsModule))
+            modules(listOf(appModule, networkModule, viewModelsModule))
         }
 
         if (BuildConfig.DEBUG) {

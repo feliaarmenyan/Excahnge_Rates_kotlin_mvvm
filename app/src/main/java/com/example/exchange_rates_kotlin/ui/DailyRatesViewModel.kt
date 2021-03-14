@@ -18,10 +18,13 @@ class DailyRatesViewModel(private val repository: DailyExRatesRepository) : Base
     val showYesterdayError = SingleLiveEvent<String>()
     val showTomorrowError = SingleLiveEvent<String>()
     val showError = SingleLiveEvent<String>()
+    val loading = MutableLiveData<Boolean>()
 
     fun loadTodayRates(day: String?) {
+        loading.value = true
         launch {
             val result = withContext(Dispatchers.IO) { repository.getDailyExRates(day) }
+            loading.value = false
             when (result) {
                 is UseCaseResult.Success -> todayExRates.value = result.data
                 is UseCaseResult.Error -> showError.value = result.exception.message

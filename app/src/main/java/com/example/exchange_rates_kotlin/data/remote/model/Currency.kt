@@ -20,7 +20,9 @@ data class Currency(
     @field:Element(name = "Rate", required = false)
     var Rate: String = "",
     @Transient
-    var secondDay: String = ""
+    var secondDay: String = "",
+    @Transient
+    var isChecked: Boolean = false
 ) : Parcelable {
     fun exRates(): String {
         return "$Scale  $Name"

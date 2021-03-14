@@ -58,19 +58,9 @@ fun Context.hasNetworkConnection(): Boolean {
     return false;
 }
 
-fun Date?.getYearDate(): String {
-    this?.let {
-        val sdf = SimpleDateFormat("yyyy")
-        return sdf.format(date)
-    } ?: run {
-        return ""
-    }
-}
-
-fun Context.getDate(date: Date?): String? {
+fun getDate(date: Date?): String? {
     date?.let {
-        val pref = AppPreferencesImpl(this)
-        val sdf = SimpleDateFormat("MM.dd.yyyy", Locale(pref.languageCode))
+        val sdf = SimpleDateFormat("MM.dd.yyyy")
         return sdf.format(date)
     } ?: run {
         return null

@@ -1,10 +1,7 @@
 package com.example.exchange_rates_kotlin.ui.settings
 
-import android.media.Image
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.exchange_rates_kotlin.data.remote.model.CurrenciesUpdated
@@ -14,26 +11,13 @@ import com.example.exchange_rates_kotlin.databinding.ItemSettingsBinding
 class SettingsSwapAdapter(
     private var items: MutableList<Currency>
 ) : RecyclerView.Adapter<SettingsSwapAdapter.BaseHomeViewHolder>() {
-    var binding: ItemSettingsBinding? = null
 
-//    var onTrackItemClick: ((Int, Currency, View) -> Unit)? = null
-
-    fun setItems(elements: List<Currency>) {
+    fun setItems(elements: MutableList<Currency>) {
         val size = items.size
         this.items.clear()
         notifyItemRangeRemoved(0, size)
         items.addAll(elements)
         notifyItemRangeChanged(0, items.size)
-    }
-
-    fun addItems(elements: List<Currency>) {
-        val positionStart: Int = this.items.size
-        this.items.addAll(elements)
-        notifyItemRangeChanged(positionStart, elements.size)
-    }
-
-    fun getMoverView(): ImageView? {
-        return binding?.mover
     }
 
     /**
@@ -68,8 +52,8 @@ class SettingsSwapAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHomeViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        binding = ItemSettingsBinding.inflate(layoutInflater, parent, false)
-        return TrackViewHolder(binding!!)
+        val binding = ItemSettingsBinding.inflate(layoutInflater, parent, false)
+        return TrackViewHolder(binding)
     }
 
     abstract class BaseHomeViewHolder(viewDataBinding: ViewBinding) :
@@ -88,16 +72,14 @@ class SettingsSwapAdapter(
             with(binding) {
                 charCode.text = currency.CharCode
                 exRates.text = currency.exRates()
-                when (currency.CharCode) {
-                    "USD" -> exchangeSwitch.isChecked = true
-                    "EUR" -> exchangeSwitch.isChecked = true
-                    "RUB" -> exchangeSwitch.isChecked = true
-                    else -> exchangeSwitch.isChecked = false
+                exchangeSwitch.isChecked = currency.isChecked
+
+                exchangeSwitch.setOnClickListener {
+                    currency.isChecked = exchangeSwitch.isChecked
                 }
             }
         }
     }
 
-    override fun getItemCount(): Int =
-        items.size
+    override fun getItemCount(): Int = items.size
 }
