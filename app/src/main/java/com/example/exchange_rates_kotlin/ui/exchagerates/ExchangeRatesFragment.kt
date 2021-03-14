@@ -48,11 +48,11 @@ class ExchangeRatesFragment : Fragment(R.layout.fragment_exchange_rates) {
                 mViewModel.loadTodayRates(getDate(Date()))
             }
 
-            firstDay.text = getDate(Date())
-            mViewModel.tomorrowExRates.value?.let {
-                secondDay.text = getDate(tomorrow())
+            firstDay.text = getNormalDate(Date())
+            mViewModel.tomorrowExRates.value?.CurrencyList?.let {
+                secondDay.text = getNormalDate(tomorrow())
             } ?: run {
-                secondDay.text = getDate(yesterday())
+                secondDay.text = getNormalDate(yesterday())
             }
         }
 
@@ -86,8 +86,10 @@ class ExchangeRatesFragment : Fragment(R.layout.fragment_exchange_rates) {
         }
 
         mViewModel.tomorrowExRates.observe(this) { items ->
-
             setSecondDayInfo(items)
+            if (items.CurrencyList.isNullOrEmpty()) {
+                mViewModel.loadYesterdayRates(getDate(yesterday()))
+            }
         }
 
         mViewModel.showError.observe(this) { error ->
@@ -145,6 +147,12 @@ class ExchangeRatesFragment : Fragment(R.layout.fragment_exchange_rates) {
         }
         mAdapter.clearList()
         mAdapter.submitList(shownCurrencyList)
+
+        mViewModel.tomorrowExRates.value?.CurrencyList?.let {
+            mBinding.secondDay.text = getNormalDate(tomorrow())
+        } ?: run {
+            mBinding.secondDay.text = getNormalDate(yesterday())
+        }
     }
 
     private fun setSelectedItems(item: DailyExRates?) {

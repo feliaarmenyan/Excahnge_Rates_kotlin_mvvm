@@ -67,6 +67,15 @@ fun getDate(date: Date?): String? {
     }
 }
 
+    fun getNormalDate(date: Date?): String? {
+    date?.let {
+        val sdf = SimpleDateFormat("dd.MM.yyyy")
+        return sdf.format(date)
+    } ?: run {
+        return null
+    }
+}
+
 fun yesterday(): Date? {
     val cal = Calendar.getInstance()
     cal.add(Calendar.DATE, -1)
